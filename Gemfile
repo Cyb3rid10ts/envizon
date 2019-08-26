@@ -61,7 +61,7 @@ gem 'sucker_punch'
 gem 'sidekiq'
 
 # db import/export
-gem 'yaml_db'
+gem 'yaml_db', git: 'https://github.com/evs-ch/yaml_db.git'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
