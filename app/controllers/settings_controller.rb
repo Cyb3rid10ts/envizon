@@ -115,6 +115,7 @@ class SettingsController < ApplicationController
     FileUtils.rm_rf(Rails.root.join('storage'))
     FileUtils.mv(unziped_storage, out_storage)
 
+    byebug
     app = Rake.application
     app.init
     app.add_import "#{Gem::Specification.find_by_name('yaml_db').gem_dir}/lib/tasks/yaml_db_tasks.rake"

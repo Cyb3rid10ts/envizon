@@ -1,10 +1,14 @@
 class ImagesController < ApplicationController
     def index
-        @images = Port.joins(:image_attachment).map{|p| p.image}.sort{|i| i.created_at}
+        image_map = Port.joins(:image_attachment).map{|p| [p.image, p.url_ip]}
+        image_map.concat(Port.joins(:image_attachment).map{|p| [p.image, p.url_host]})
+        @images = image_map.sort{|i| i[0].created_at}
     end
 
     def nuke
-        Port.joins(:image_attachment).map{|p| p.image}.sort{|i| i.created_at}.each{|i| i.purge}
+        image_map = Port.joins(:image_attachment).map{|p| p.image}
+        image_map.concat(Port.joins(:image_attachment).map{|p| p.image})
+        image_map.sort{|i| i.created_at}.each{|i| i.purge}
     end
 
     def scan_all
